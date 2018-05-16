@@ -1,0 +1,276 @@
+create table sl_users(
+				id_user int auto_increment,
+				name_user varchar(50),
+				last_user varchar(50),
+				email_user varchar(50),
+				password text(50),
+				date_capture date,
+				primary key(id_user)
+					);
+
+**************************************************************
+Sistema-de-Ventas-y-Almacen/index.php
+<?php 
+	
+	require_once "classes/connection.php";
+	$obj= new Connect();
+	$connection=$obj->connection();
+	$sql="SELECT * FROM sl_users where email='admin'";
+	$result=mysqli_query($connection,$sql);
+	$validate=0;
+	if(mysqli_num_rows($result) > 0){
+		$validate=1;
+	}
+ ?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Login</title>
+	<link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.css">
+	<script src="libraries/jquery-3.2.1.min.js"></script>
+	<script src="js/functions.js"></script>
+</head>
+<body style="background-color: gray">
+	<br><br><br>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<div class="panel panel-primary">
+					<div class="panel panel-heading">Sales and Inventory System</div>
+					<div class="panel panel-body">
+						<p>
+							<img src="img/sales.jpg"  height="190">
+						</p>
+						<form id="frmLogin">
+							<label>User</label>
+							<input type="text" class="form-control input-sm" name="user" id="user">
+							<label>Password</label>
+							<input type="password" name="password" id="password" class="form-control input-sm">
+							<p></p>
+							<span class="btn btn-primary btn-sm" id="enterSystem">Enter</span>
+							<?php  if(!$validate): ?>
+							<a href="register.php" class="btn btn-danger btn-sm">Register</a>
+							<?php endif; ?>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+	</div>
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#enterSystem').click(function(){
+		vacios=validateEmptyForm('frmLogin');
+			if(Empties > 0){
+				alert("You must fill all of the fields!!");
+				return false;
+			}
+		data=$('#frmLogin').serialize();
+		$.ajax({
+			type:"POST",
+			data:data,
+			url:"procesos/regLogin/login.php",
+			success:function(r){
+				if(r==1){
+					window.location="view/inicio.php";
+				}else{
+					alert("You can not access! :(");
+				}
+			}
+		});
+	});
+	});
+</script>
+**************************************************************
+Sistema-de-Ventas-y-Almacen/clases/Usuarios.php
+
+<?php 
+	class users{
+		public function usersRegister($data){
+			$c=new Connect();
+			$connection=$c->connection();
+			$date=date('Y-m-d');
+			$sql="INSERT into sl_users (name_user,
+								last_user,
+								email_user,
+								password,
+								date_capture)
+						values ('$data[0]',
+								'$data[1]',
+								'$data[2]',
+								'$data[3]',
+								'$date')";
+			return mysqli_query($connection,$sql);
+		}
+
+----------------------------------------------------------------------
+		public function loginUser($data){
+			$c=new conectar();
+			$conexion=$c->conexion();
+			$password=sha1($datos[1]);
+			$_SESSION['usuario']=$datos[0];
+			$_SESSION['iduser']=self::traeID($datos);
+			$sql="SELECT * 
+					from usuarios 
+				where email='$datos[0]'
+				and password='$password'";
+			$result=mysqli_query($conexion,$sql);
+			if(mysqli_num_rows($result) > 0){
+				return 1;
+			}else{
+				return 0;
+			}
+		}
+		public function traeID($datos){
+			$c=new conectar();
+			$conexion=$c->conexion();
+			$password=sha1($datos[1]);
+			$sql="SELECT id_usuario 
+					from usuarios 
+					where email='$datos[0]'
+					and password='$password'"; 
+			$result=mysqli_query($conexion,$sql);
+			return mysqli_fetch_row($result)[0];
+		}
+	}
+ ?>
+
+*********************************************************************
+Sistema-de-Ventas-y-Almacen/registro.php
+
+<?php 
+	
+	require_once "clases/Conexion.php";
+	$obj= new conectar();
+	$conexion=$obj->conexion();
+	$sql="SELECT * from usuarios where email='admin'";
+	$result=mysqli_query($conexion,$sql);
+	$validar=0;
+	if(mysqli_num_rows($result) > 0){
+		header("location:index.php");
+	}
+ ?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>registro</title>
+	<link rel="stylesheet" type="text/css" href="librerias/bootstrap/css/bootstrap.css">
+	<script src="librerias/jquery-3.2.1.min.js"></script>
+	<script src="js/funciones.js"></script>
+
+</head>
+<body style="background-color: gray">
+	<br><br><br>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<div class="panel panel-danger">
+					<div class="panel panel-heading">Registrar Administrador</div>
+					<div class="panel panel-body">
+						<form id="frmRegistro">
+							<label>Nombre</label>
+							<input type="text" class="form-control input-sm" name="nombre" id="nombre">
+							<label>Apellido</label>
+							<input type="text" class="form-control input-sm" name="apellido" id="apellido">
+							<label>Usuario</label>
+							<input type="text" class="form-control input-sm" name="usuario" id="usuario">
+							<label>Password</label>
+							<input type="text" class="form-control input-sm" name="password" id="password">
+							<p></p>
+							<span class="btn btn-primary" id="registro">Registrar</span>
+							<a href="index.php" class="btn btn-default">Regresar login</a>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+	</div>
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#registro').click(function(){
+			vacios=validarFormVacio('frmRegistro');
+			if(vacios > 0){
+				alert("Debes llenar todos los campos!!");
+				return false;
+			}
+			datos=$('#frmRegistro').serialize();
+			$.ajax({
+				type:"POST",
+				data:datos,
+				url:"procesos/regLogin/registrarUsuario.php",
+				success:function(r){
+					alert(r);
+					if(r==1){
+						alert("Agregado con exito");
+					}else{
+						alert("Fallo al agregar :(");
+					}
+				}
+			});
+		});
+	});
+</script>
+
+*******************************************************************************
+Sistema-de-Ventas-y-Almacen/js/funciones.js
+function validarFormVacio(formulario){
+		datos=$('#' + formulario).serialize();
+		d=datos.split('&');
+		vacios=0;
+		for(i=0;i< d.length;i++){
+				controles=d[i].split("=");
+				if(controles[1]=="A" || controles[1]==""){
+					vacios++;
+				}
+		}
+		return vacios;
+	}
+
+*******************************************************************************
+Sistema-de-Ventas-y-Almacen/procesos/regLogin/registrarUsuario.php
+
+
+<?php 
+	require_once "../../clases/Conexion.php";
+	require_once "../../clases/Usuarios.php";
+	$obj= new usuarios();
+	$pass=sha1($_POST['password']);
+	$datos=array(
+		$_POST['nombre'],
+		$_POST['apellido'],
+		$_POST['usuario'],
+		$pass
+				);
+	echo $obj->registroUsuario($datos);
+ ?>
+*******************************************************************************
+Sistema-de-Ventas-y-Almacen/procesos/regLogin/registrarUsuario.php
+
+
+<?php 
+	require_once "../../clases/Conexion.php";
+	require_once "../../clases/Usuarios.php";
+	$obj= new usuarios();
+	$pass=sha1($_POST['password']);
+	$datos=array(
+		$_POST['nombre'],
+		$_POST['apellido'],
+		$_POST['usuario'],
+		$pass
+				);
+	echo $obj->registroUsuario($datos);
+ ?>
