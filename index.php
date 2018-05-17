@@ -1,90 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login de usuario</title>
-	<link rel="stylesheet" type="text/css" href="librerias/bootstrap/css/bootstrap.css">
-	<script src="librerias/jquery-3.2.1.min.js"></script>
-	<script src="js/funciones.js"></script>
+	<title>User Login</title>
+	<link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.css">
+	<script src="libraries/jquery-3.2.1.min.js"></script>
+	<script src="js/functions.js"></script>
 </head>
-<body>
-<div class="container" style="margin-top:30px">
-<div class="col-md-4">
-    <div class="panel panel-default">
-  <div class="panel-heading"><h3 class="panel-title"><strong>Sign In </strong></h3></div>
-  <div class="panel-body">
-   <form role="form">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Username or Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password <a href="/sessions/forgot_password">(forgot password)</a></label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-sm btn-default">Sign in</button>
-</form>
-  </div>
-</div>
-</div>
-<div class="col-md-4">
-<div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Sign In</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form">
-                            <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="javascript:;" class="btn btn-sm btn-success">Login</a>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-</div>
-<br>
-<div class="col-md-12">
-    <div class="modal-dialog" style="margin-bottom:0">
-        <div class="modal-content">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Sign In</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form">
-                            <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="javascript:;" class="btn btn-sm btn-success">Login</a>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-    </div>
-</div>
-<hr>
+<body style="background-color: gray">
+<br><br><br>
+<div class="container">
+    <div class="row">
+    	<div class="col-md-4 col-md-offset-4">
+    		<div class="panel panel-default">
+			  	<div class="panel-heading">
+			    	<label class="panel-title">Login</label>
+			 	</div>
+			 	<br>
+			 	<p align="middle">
+					<img class="center" src="images/login.png"  height="120" class="center" >
+				</p>
+			  	<div class="panel-body">
+			    	<form id="frmLogin">
+                    <fieldset>
+			    	  	<div class="form-group">
+			    		    <input class="form-control" placeholder="Username" name="username" type="text" required autofocus>
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" placeholder="Password" name="password" type="password" value="" required>
+			    		</div>
+			    		<input href="register.php" class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+			    	</fieldset>
+			      	</form>
+                      <hr/>
+                    <a href="register.php" class="text-center new-account">Create an account </a>
+			    </div>
+			</div>            	
+		</div>
+	</div>
 
 </div>
-
 
 </body>
 </html>
