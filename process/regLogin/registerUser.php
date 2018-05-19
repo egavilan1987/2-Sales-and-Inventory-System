@@ -3,11 +3,11 @@
 	require_once "../../classes/Users.php";
 	$obj= new Users();
 	$pass=sha1($_POST['password']);
-	$datos=array(
-		$_POST['name_user'],
-		$_POST['last_user'],
-		$_POST['email_user'],
+	$data=array(
+		$_POST['name'],
+		$_POST['lastName'],
+		$_POST['email'],
 		$pass
 				);
-	echo $obj->usersRegister($datos);
+	echo $obj->userRegister($data);
  ?>

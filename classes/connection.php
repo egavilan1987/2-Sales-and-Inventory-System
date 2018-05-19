@@ -13,6 +13,4 @@
 			return $connection;
 		}
 	}
-	$obj=new Connect();
-	var_dump($obj->connection());
  ?>
