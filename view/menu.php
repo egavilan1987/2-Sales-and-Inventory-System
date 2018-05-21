@@ -20,40 +20,40 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="inicio.php"><img class="img-responsive logo img-thumbnail" src="../images/sales.png" alt="" width="150px" height="150px"></a>
+          <a class="navbar-brand" href="init.php"><img class="img-responsive logo img-thumbnail" src="../images/sales.png" alt="" width="150px" height="150px"></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
 
           <ul class="nav navbar-nav navbar-right">
 
-            <li class="active"><a href="inicio.php"><span class="glyphicon glyphicon-home"></span> Inicio</a>
+            <li><a href="init.php"><span class="glyphicon glyphicon-home"></span> Home</a>
             </li>
 
             
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt"></span> Administrar Articulos <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt"></span>  Items Manager <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="categorias.php">Categorias</a></li>
-              <li><a href="articulos.php">Articulos</a></li>
+              <li><a href="categories.php">Categories</a></li>
+              <li><a href="items.php">Items</a></li>
             </ul>
           </li>
 
 
-           <li><a href="usuarios.php"><span class="glyphicon glyphicon-user"></span> Administrar usuarios</a>
+           <li><a href="users.php"><span class="glyphicon glyphicon-user"></span> Manage Users</a>
             </li>
 
 
 
-           <li><a href="clientes.php"><span class="glyphicon glyphicon-user"></span> Clientes</a>
+           <li><a href="clients.php"><span class="glyphicon glyphicon-user"></span> Clients</a>
           </li>
-          <li><a href="ventas.php"><span class="glyphicon glyphicon-usd"></span> Vender Articulo</a>
+          <li><a href="sales.php"><span class="glyphicon glyphicon-usd"></span> Sale Items</a>
           </li>
           
           <li class="dropdown" >
-            <a href="#" style="color: red"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Usuario:  <span class="caret"></span></a>
+            <a href="#" style="color: red"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Users:  <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li> <a style="color: red" href="../procesos/salir.php"><span class="glyphicon glyphicon-off"></span> Salir</a></li>
+              <li> <a style="color: red" href="../process/logout.php"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
               
             </ul>
           </li>

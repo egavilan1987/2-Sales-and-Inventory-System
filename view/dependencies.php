@@ -11,6 +11,6 @@
 <script src="../libraries/jquery-3.2.1.min.js"></script>
 <script src="../libraries/alertifyjs/alertify.js"></script>
 <script src="../libraries/bootstrap/js/bootstrap.js"></script>
-<script src="../functions/select2/js/select2.js"></script>
+<script src="../libraries/select2/js/select2.js"></script>
 <script src="../js/functions.js"></script>
 
