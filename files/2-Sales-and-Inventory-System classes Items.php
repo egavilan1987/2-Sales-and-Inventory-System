@@ -112,6 +112,75 @@
 
 	}
 
+2-Sales-and-Inventory-System classes customer.php
+
+<?php 
+	class clients{
+		public function addClient($data){
+			$c=new Connect();
+			$conn=$c->connection();
+			$iduser=$_SESSION['iduser'];
+			$sql="INSERT INTO sl_clients ($iduser,
+										name_client,
+										last_client,
+										address_client,
+										email_client,
+										telephone_client,
+										rfc)
+							values ('$iduser,
+									'$data[0]',
+									'$data[1]',
+									'$data[2]',
+									'$data[3]',
+									'$data[4]',
+									'$data[5]')";
+			return mysqli_query($conn,$sql);	
+		}
+		public function getClientData($idclient){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="SELECT id_client, 
+							name_client,
+							last_client,
+							address_client,
+							email_client ,
+							telephone_client,
+							rfc 
+				FROM sl_clients";
+			$result=mysqli_query($conn,$sql);
+			$row=mysqli_fetch_row($result);
+			$clientArray=array(
+					'id_client' => $row[0], 
+					'name_client' => $row[1],
+					'last_client' => $row[2],
+					'address_client' => $row[3],
+					'email_client' => $row[4],
+					'telephone_client' => $row[5],
+					'rfc' => $row[6]
+						);
+			return $clientArray;
+		}
+
+		public function updateClient($data){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="UPDATE sl_clients SET id_user='$data[1]',
+										name_client='$data[2]',
+										address_client='$data[3]',
+										email_client='$data[4]',
+										telephone_client='$data[5]',
+										rfc='$data[6]' 
+								WHERE id_client='$data[0]'";
+			return mysqli_query($conn,$sql);
+		}
+		public function deleteClient($idclient){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="DELETE from sl_clients WHERE id_client='$idclient'";
+			return mysqli_query($conn,$sql);
+		}
+	}
+ ?>
 
 
 
