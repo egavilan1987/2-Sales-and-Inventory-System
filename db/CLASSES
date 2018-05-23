@@ -1,0 +1,602 @@
+-
+CLASSES
+
+2-Sales-and-Inventory-System classes Items.php
+<?php 
+	class items{
+		public function addImage($data){
+			$c=new Connect();
+			$connection=$c->connection();
+			$date=date('Y-m-d');
+			$sql="INSERT INTO sl_images (id_category,
+										name_image,
+										path,
+										uploaded_date)
+							VALUES ('$data[0]',
+									'$data[1]',
+									'$data[2]',
+									'$date')";
+			return mysqli_query($connection,$sql);
+		}
+			public function insertItem($data){
+			$c=new Connect();
+			$connection=$c->connection();
+			$date=date('Y-m-d');
+			$sql="INSERT INTO sl_items (id_category,
+										id_image,
+										id_user,
+										name_product,
+										description_product,
+										stock_product,
+										price_product,
+										date_capture) 
+							VALUES ('$data[0]',
+									'$data[1]',
+									'$data[2]',
+									'$data[3]',
+									'$data[4]',
+									'$data[5]',
+									'$data[6]',
+									'$date')";
+			return mysqli_query($connection,$sql);
+		}
+		public function getItemData($id_product){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="SELECT id_product, 
+						id_category, 
+						name_product,
+						description_product,
+						stock_product,
+						price_product
+				FROM sl_items
+				WHERE id_product='$id_product'";
+			$result=mysqli_query($conn,$sql);
+			$row=mysqli_fetch_row($result);
+			$itemArray=array(
+					"id_product" => $row[0],
+					"id_category" => $row[1],
+					"name_product" => $row[2],
+					"description_product" => $row[3],
+					"stock_product" => $row[4],
+					"price_product" => $row[5]
+						);
+			return $itemArray;
+		}
+		public function updateItem($data){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="UPDATE sl_items SET id_category='$data[1]', 
+										name_product='$data[2]',
+										description_product='$data[3]',
+										stock_product='$data[4]',
+										price_product='$data[5]'
+						WHERE id_product='$data[0]'";
+			return mysqli_query($conn,$sql);
+		}
+		public function deleteItem($idProduct){
+			$c=new Connect();
+			$conn=$c->connection();
+			$idImage=self::getImageID($idProduct);
+			$sql="DELETE from sl_items 
+					WHERE id_product='$idProduct'";
+			$result=mysqli_query($conn,$sql);
+			if($result){
+				$path=self::getImagePath($idImage);
+				$sql="DELETE from sl_images 
+						WHERE id_image='$idImage'";
+				$result=mysqli_query($conn,$sql);
+					if($result){
+						if(unlink($path)){
+							return 1;
+						}
+					}
+			}
+		}
+		public function getImageID($idProduct){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="SELECT id_image 
+					FROM sl_items 
+					WHERE id_product='$idProduct'";
+			$result=mysqli_query($conn,$sql);
+			return mysqli_fetch_row($result)[0];
+		}
+		public function getImagePath($idImg){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="SELECT path 
+					FROM sl_images 
+					WHERE id_image='$idImg'";
+			$result=mysqli_query($conn,$sql);
+			return mysqli_fetch_row($result)[0];
+		}
+
+	}
+-------------------------------------------------------------
+
+
+2-Sales-and-Inventory-System classes customer.php
+
+<?php 
+	class clients{
+		public function addClient($data){
+			$c=new Connect();
+			$conn=$c->connection();
+			$iduser=$_SESSION['iduser'];
+			$sql="INSERT INTO sl_clients ($iduser,
+										name_client,
+										last_client,
+										address_client,
+										email_client,
+										telephone_client,
+										rfc)
+							values ('$iduser,
+									'$data[0]',
+									'$data[1]',
+									'$data[2]',
+									'$data[3]',
+									'$data[4]',
+									'$data[5]')";
+			return mysqli_query($conn,$sql);	
+		}
+		public function getClientData($idclient){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="SELECT id_client, 
+							name_client,
+							last_client,
+							address_client,
+							email_client ,
+							telephone_client,
+							rfc 
+				FROM sl_clients";
+			$result=mysqli_query($conn,$sql);
+			$row=mysqli_fetch_row($result);
+			$clientArray=array(
+					'id_client' => $row[0], 
+					'name_client' => $row[1],
+					'last_client' => $row[2],
+					'address_client' => $row[3],
+					'email_client' => $row[4],
+					'telephone_client' => $row[5],
+					'rfc' => $row[6]
+						);
+			return $clientArray;
+		}
+
+		public function updateClient($data){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="UPDATE sl_clients SET id_user='$data[1]',
+										name_client='$data[2]',
+										address_client='$data[3]',
+										email_client='$data[4]',
+										telephone_client='$data[5]',
+										rfc='$data[6]' 
+								WHERE id_client='$data[0]'";
+			return mysqli_query($conn,$sql);
+		}
+		public function deleteClient($idclient){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="DELETE from sl_clients WHERE id_client='$idclient'";
+			return mysqli_query($conn,$sql);
+		}
+	}
+ ?>
+
+-------------------------------------------------------------------------
+2-Sales-and-Inventory-System classes User.php
+
+<?php 
+	class users{
+		public function userRegister($data){
+			$c=new Connect();
+			$conn=$c->connection();
+			$date=date('Y-m-d');
+			$sql="INSERT INTO sl_users (name_user,
+								last_user,
+								email_user,
+								password,
+								date_capture)
+						values ('$data[0]',
+								'$data[1]',
+								'$data[2]',
+								'$data[3]',
+								'$date')";
+			return mysqli_query($conn,$sql);
+		}
+		public function loginUser($data){
+			$c=new Connect();
+			$conn=$c->connection();
+			$password=sha1($data[1]);
+			$_SESSION['user']=$data[0];
+			$_SESSION['iduser']=self::getID($data);
+			$sql="SELECT * 
+					FROM sl_users 
+				where email_user='$datos[0]'
+				and password='$password'";
+			$result=mysqli_query($conn,$sql);
+			if(mysqli_num_rows($result) > 0){
+				return 1;
+			}else{
+				return 0;
+			}
+		}
+		public function getID($data){
+			$c=new Connect();
+			$conn=$c->connection();
+			$password=sha1($data[1]);
+			$sql="SELECT id_usuario 
+					FROM name_user 
+					WHERE email='$data[0]'
+					and password='$password'"; 
+			$result=mysqli_query($conn,$sql);
+			return mysqli_fetch_row($result)[0];
+		}
+		public function getUserData ($idUser){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="SELECT id_user,
+							name_user,
+							last_user,
+							email_user
+					from sl_users 
+					WHERE id_usuario='$idUser'";
+			$result=mysqli_query($conn,$sql);
+			$row=mysqli_fetch_row($result);
+			$userArray=array(
+						'id_usuario' => $row[0],
+							'name_user' => $row[1],
+							'last_user' => $row[2],
+							'email_user' => $row[3]
+						);
+			return $userArray;
+		}
+		public function userUpdated($data){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="UPDATE sl_users SET name_user='$data[1]',
+									last_user='$data[2]',
+									email_user='$data[3]'
+						WHERE id_user='$data[0]'";
+			return mysqli_query($conn,$sql);	
+		}
+		public function deleteUser($idUser){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="DELETE from sl_sales  
+					WHERE id_user='$iduser'";
+			return mysqli_query($conexion,$sql);
+		}
+	}
+ ?>
+2-Sales-and-Inventory-System classes Sales.php
+
+<?php 
+class sales{
+	public function getItemsData($idProduct){
+			$c=new Connect();
+			$conn=$c->connection();
+		$sql="SELECT itm.name_product,
+		itm.description_product,
+		itm.stock_product,
+		img.path,
+		itm.price_product
+		FROM sl_items AS itm
+		INNER JOIN sl_images AS img
+		ON itm.id_image=img.idImage 
+		AND art.id_product='$idProduct'";
+		$result=mysqli_query($conn,$sql);
+		$row=mysqli_fetch_row($result);
+		$d=explode('/', $row[3]);
+		$img=$d[1].'/'.$d[2].'/'.$d[3];
+		$saleArray=array(
+			'name_product' => $row[0],
+			'description_product' => $row[1],
+			'price_product' => $row[2],
+			'path' => $img,
+			'price_sales' => $row[4]
+		);		
+		return $saleArray;
+	}
+	public function createSale(){
+			$c=new Connect();
+			$conn=$c->connection();
+		$date=date('Y-m-d');
+		$idSale=self::createFolio();
+		$data=$_SESSION['tablaComprasTemp'];
+		$iduser=$_SESSION['iduser'];
+		$r=0;
+		for ($i=0; $i < count($data) ; $i++) { 
+			$d=explode("||", $data[$i]);
+			$sql="INSERT INTO sl_sales (id_sale,
+										id_client,
+										id_product,
+										id_user,
+										price_sales,
+										purchase_date)
+							VALUES ('$idventa',
+									'$d[5]',
+									'$d[0]',
+									'$idusuario',
+									'$d[3]',
+									'$date')";
+			$r=$r + $result=mysqli_query($conn,$sql);
+		}
+		return $r;
+	}
+	public function createFolio(){
+			$c=new Connect();
+			$conn=$c->connection();
+		$sql="SELECT id_id_sale from sl_sales GROUP BY id_sale DESC";
+		$result=mysqli_query($conn,$sql);
+		$id=mysqli_fetch_row($resul)[0];
+		if($id=="" or $id==null or $id==0){
+			return 1;
+		}else{
+			return $id + 1;
+		}
+	}
+	public function clientName($idClient){
+			$c=new Connect();
+			$conn=$c->connection();
+		 $sql="SELECT last_client varchar, name_client 
+			FROM sl_clients 
+			WHERE id_client='$idClient'";
+		$result=mysqli_query($conn,$sql);
+		$row=mysqli_fetch_row($result);
+		return $row[0]." ".$row[1];
+	}
+	public function getTotal($idSale){
+			$c=new Connect();
+			$conn=$c->connection();
+		$sql="SELECT price_sales
+				FROM sl_sales 
+				WHERE id_sale='$idSale'";
+		$result=mysqli_query($conn,$sql);
+		$total=0;
+		while($row=mysqli_fetch_row($result)){
+			$total=$total + $row[0];
+		}
+		return $total;
+	}
+}
+?>
+
+PROCESS
+
+ITEMS
+
+2-Sales-and-Inventory-System/process/items/insertItem.php
+<?php
+	session_start();
+	$idUser=$_SESSION['user'];
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Items.php";
+	$obj= new items();
+	$data=array(
+		$_POST['selectCategory'],
+		$_POST['name'],
+		$_POST['description'],
+		$_POST['quantity'],
+		$_POST['price'],
+	);
+	$imageName=$_FILES['image']['name'];
+	$storagePath=$_FILES['image']['tmp_name'];
+	$folder='../../files/';
+	$finalPath=$folder.$imageName;
+	$dataImg=array(
+		$_POST['selectCategory'],
+		$imageName,
+		$finalPath
+					);
+		if(move_uploaded_file($storagePath, $finalPath)){
+			$idImage=$obj->addImage($dataImg);
+				if($idImage > 0){
+					$data[0]=$_POST['selectCategory'];
+					$data[1]=$idImage;
+					$data[2]=$idUser;
+					$data[3]=$_POST['name'];
+					$data[4]=$_POST['description'];
+					$data[5]=$_POST['quantity'];
+					$data[6]=$_POST['price'];
+					echo $obj->insertItem($data);
+				}else{
+					echo 0;
+				}			
+		}
+?>
+2-Sales-and-Inventory-System/process/items/getItemData.php
+
+<?php 
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Items.php";
+	$obj= new items();
+	$idItem=$_POST['idItem'];
+	echo json_encode($obj->getItemData($idItem));
+ ?>
+
+
+
+2-Sales-and-Inventory-System/process/items/eliminarArticulo.php
+
+<?php 
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Items.php";
+$idItem=$_POST['idItem'];
+	$obj=new items();
+	echo $obj->deleteItem($idItem);
+ ?>
+
+
+2-Sales-and-Inventory-System/process/items/actualizaArticulos.php
+<?php 
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Items.php";
+	$obj= new items();
+$itemArray=array(
+		$_POST['id_item'],
+	    $_POST['selectCategoryUpdate'],
+	    $_POST['nameUpdate'],
+	    $_POST['descriptionUpdate'],
+	    $_POST['quantityUpdate'],
+	    $_POST['priceUpdate']
+			);
+    echo $obj->updateItem($itemArray);
+ ?>
+-----------------------------------------------------------------------------------
+Client
+
+2-Sales-and-Inventory-System/process/client/insertClient.php
+
+<?php 
+session_start();
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Clients.php";
+	$obj= new clientes();
+	$clientArray=array(
+			$_POST['nameUpdate'],
+			$_POST['lastNameUpdate'],
+			$_POST['addressUpdate'],
+			$_POST['emailUpdate'],
+			$_POST['telephoneUpdate'],
+			$_POST['rfcUpdate']
+				);
+	echo $obj->insertClient($clientArray);
+	
+	
+ ?>
+
+2-Sales-and-Inventory-System/process/client/updateClient.php
+
+<?php 
+session_start();
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Clients.php";
+	$obj= new clients();
+	$clientArray=array(
+			$_POST['idclienteU'],
+			$_POST['nameUpdate'],
+			$_POST['lastNameUpdate'],
+			$_POST['addressUpdate'],
+			$_POST['emailUpdate'],
+			$_POST['telephoneUpdate'],
+			$_POST['rfcUpdate']
+				);
+	echo $obj->updateClient($clientArray);
+	
+	
+ ?>
+
+2-Sales-and-Inventory-System/process/client/getClient.php
+
+<?php 
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Clients.php";
+	$obj= new clients();
+	echo json_encode($obj->getClientData($_POST['idClient']));
+ ?>
+
+2-Sales-and-Inventory-System/process/client/deleteClient.php
+
+<?php 
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Clients.php";
+	$obj= new clients();
+	
+	echo $obj->deleteClient($_POST['idClient']);
+ ?>
+
+-----------------------------------------------------------------------------------
+User
+
+2-Sales-and-Inventory-System/process/client/updateUser.php
+
+<?php 
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Users.php";
+	$obj= new users;
+	$userArray=array(
+			$_POST['idUserUpdate'],  
+		    $_POST['nameUpdate'] , 
+		    $_POST['lastNameUpdate'],  
+		    $_POST['userUpdate']
+				);  
+	echo $obj->updateUser($userArray);
+ ?>
+
+2-Sales-and-Inventory-System/process/client/deleteUser.php
+
+<?php 
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Users.php";
+	$obj= new users;
+	echo $obj->deleteUser($_POST['idUser']);
+ ?>
+
+2-Sales-and-Inventory-System/process/client/getUserData.php
+
+<?php 
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Users.php";
+	$obj= new users;
+	echo json_encode($obj->getUserData($_POST['idUser']));
+ ?>
+
+-----------------------------------------------------------------------------------
+VENTAS
+
+
+client/getUserData.php
+
+<?php 
+	session_start();
+	require_once "../../classes/connection.php";
+
+			$c=new Connect();
+			$conn=$c->connection();
+
+	$id_client=$_POST['saleClient'];
+	$id_product=$_POST['saleproduct'];
+	$description=$_POST['descriptionUpdate'];
+	$quantity=$_POST['quantityUpdate'];
+	$price_sales=$_POST['priceUpdate'];
+
+	$sql="SELECT nombre,apellido 
+			FROM sl_items
+			WHERE id_cliente='$idcliente'";
+	$result=mysqli_query($conn,$sql);
+
+	$row=mysqli_fetch_row($result);
+
+	$nclient=$c[1]." ".$row[0];
+
+	$sql="SELECT nombre 
+			from articulos 
+			WHERE id_producto='$idproducto'";
+	$result=mysqli_query($conn,$sql);
+
+	$nombreproducto=mysqli_fetch_row($result)[0];
+
+	$articulo=$idproducto."||".
+				$nombreproducto."||".
+				$descripcion."||".
+				$precio."||".
+				$ncliente."||".
+				$idcliente;
+
+	$_SESSION['tablaComprasTemp'][]=$articulo;
+ ?>
+
+
+
+
+
+
+
+
+
+
+-
