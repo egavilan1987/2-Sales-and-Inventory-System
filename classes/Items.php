@@ -2,7 +2,7 @@
 
 <?php 
 	class items{
-		public function addImage($data){
+		public function insertImage($data){
 			$c=new Connect();
 			$connection=$c->connection();
 

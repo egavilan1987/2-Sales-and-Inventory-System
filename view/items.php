@@ -59,12 +59,12 @@
 
 			$('#btnAddItem').click(function(){
 
-					/*Empties=validateEmptyForm('frmItems');
+					Empties=validateEmptyForm('frmItems');
 		
 					if(Empties > 0){
 						alertify.alert("You must fill all of the fields!");
 						return false;
-					}*/
+					}
 				var formData = new FormData(document.getElementById("frmItems"));
 
 				$.ajax({
@@ -77,8 +77,6 @@
 					processData: false,
 
 					success:function(r){
-
-						alert(r);
 						
 						if(r == 1){
 							$('#frmItems')[0].reset();

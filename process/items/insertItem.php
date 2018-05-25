@@ -8,14 +8,7 @@
 
 	$obj= new items();
 
-	$data=array(
-		$_POST['selectCategory'],
-		$_POST['name'],
-		$_POST['description'],
-		$_POST['quantity'],
-		$_POST['price'],
-
-	);
+	$data=array();
 
 	$imageName=$_FILES['image']['name'];
 	$storagePath=$_FILES['image']['tmp_name'];
@@ -30,7 +23,7 @@
 
 
 		if(move_uploaded_file($storagePath, $finalPath)){
-			$idImage=$obj->addImage($dataImg);
+			$idImage=$obj->insertImage($dataImg);
 
 				if($idImage > 0){
 
