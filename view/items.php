@@ -58,7 +58,7 @@
 			$('#loadItemsTable').load("items/itemsTable.php");
 
 			$('#btnAddItem').click(function(){
-
+					<!--Validate all the field are not empty-->
 					Empties=validateEmptyForm('frmItems');
 		
 					if(Empties > 0){
@@ -79,8 +79,8 @@
 					success:function(r){
 						
 						if(r == 1){
-							$('#frmItems')[0].reset();
-							$('#loadItemsTable').load("items/itemsTable.php");
+							$('#frmItems')[0].reset(); <!--Reset all the form fields-->
+							$('#loadItemsTable').load("items/itemsTable.php");<!--Load the item table-->
 							alertify.success("Item successfully added");
 						}else{
 							alertify.error("Upload failed");
