@@ -72,20 +72,23 @@ public function getItemData(idItem){
 			$c=new Connect();
 			$connection=$c->connection();
 			$sql="UPDATE sl_items SET id_category='$data[1]', 
-										nombre='$data[2]',
-										descripcion='$data[3]',
-										cantidad='$data[4]',
-										precio='$data[5]'
+										name_product='$data[2]',
+										description_product='$data[3]',
+										stock_product='$data[4]',
+										price_product='$data[5]'
 						WHERE id_product='$data[0]'";
 			return mysqli_query($connection,$sql);
 		}
-		public function eliminaArticulo($idarticulo){
-			$c=new conectar();
-			$conexion=$c->conexion();
-			$idimagen=self::obtenIdImg($idarticulo);
-			$sql="DELETE from articulos 
-					where id_producto='$idarticulo'";
-			$result=mysqli_query($conexion,$sql);
+		public function deleteItem($idItem){
+			
+			$c=new Connect();
+			$connection=$c->connection();
+			
+			$idimagen=self::obtenIdImg($idItem);
+			
+			$sql="DELETE FROM sl_items 
+					WHERE id_product='$idItem'";
+			$result=mysqli_query($connection,$sql);
 			if($result){
 				$ruta=self::obtenRutaImagen($idimagen);
 				$sql="DELETE from imagenes 
