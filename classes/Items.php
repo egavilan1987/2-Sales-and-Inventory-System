@@ -68,16 +68,16 @@ public function getItemData(idItem){
 						);
 			return $itemArray;
 		}
-		public function actualizaArticulo($datos){
-			$c=new conectar();
-			$conexion=$c->conexion();
-			$sql="UPDATE articulos set id_categoria='$datos[1]', 
-										nombre='$datos[2]',
-										descripcion='$datos[3]',
-										cantidad='$datos[4]',
-										precio='$datos[5]'
-						where id_producto='$datos[0]'";
-			return mysqli_query($conexion,$sql);
+		public function updateItem($data){
+			$c=new Connect();
+			$connection=$c->connection();
+			$sql="UPDATE sl_items SET id_category='$data[1]', 
+										nombre='$data[2]',
+										descripcion='$data[3]',
+										cantidad='$data[4]',
+										precio='$data[5]'
+						WHERE id_product='$data[0]'";
+			return mysqli_query($connection,$sql);
 		}
 		public function eliminaArticulo($idarticulo){
 			$c=new conectar();
