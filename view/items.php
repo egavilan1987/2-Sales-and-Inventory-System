@@ -42,7 +42,7 @@
 						<label>Image</label>
 						<input type="file" id="image" name="image">
 						<p></p>
-						<span id="btnAddItem" class="btn btn-primary">Add</span>
+						<span id="btnAddItem" class="btn btn-primary">Save</span>
 					</form>
 				</div>
 				<div class="col-sm-8">
