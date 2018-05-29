@@ -7,7 +7,7 @@
 	$obj= new items();
 
 
-	$idItem=$_POST['idItem'];
+	$idItem=$_POST['idItm'];
 					
 	echo json_encode($obj->insertItem($idItem));
 
