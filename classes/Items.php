@@ -45,28 +45,28 @@
 			return mysqli_query($connection,$sql);
 		}
 		
-public function obtenDatosArticulo($idarticulo){
-			$c=new conectar();
-			$conexion=$c->conexion();
-			$sql="SELECT id_producto, 
-						id_categoria, 
-						nombre,
-						descripcion,
-						cantidad,
-						precio 
-				from articulos 
-				where id_producto='$idarticulo'";
-			$result=mysqli_query($conexion,$sql);
-			$ver=mysqli_fetch_row($result);
-			$datos=array(
-					"id_producto" => $ver[0],
-					"id_categoria" => $ver[1],
-					"nombre" => $ver[2],
-					"descripcion" => $ver[3],
-					"cantidad" => $ver[4],
-					"precio" => $ver[5]
+public function getItemData(idItem){
+			$c=new Connect();
+			$connection=$c->connection();
+			$sql="SELECT id_product, 
+						id_category, 
+						name_product,
+						description_product,
+						stock_product,
+						price_product 
+				FROM sl_items 
+				WHERE id_product='idItem'";
+			$result=mysqli_query($connection,$sql);
+			$row=mysqli_fetch_row($result);
+			$itemArray=array(
+					"id_product" => $row[0],
+					"id_category" => $row[1],
+					"name_product" => $row[2],
+					"description_product" => $row[3],
+					"stock_product" => $row[4],
+					"price_product" => $row[5]
 						);
-			return $datos;
+			return $itemArray;
 		}
 		public function actualizaArticulo($datos){
 			$c=new conectar();
