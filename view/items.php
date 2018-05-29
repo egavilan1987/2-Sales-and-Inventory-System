@@ -99,7 +99,7 @@
 		function updateItemData(idItem){
 			$.ajax({
 				type:"POST",
-				data:"idart=" + idItem,
+				data:"idItm=" + idItem,
 				url:"../process/items/getItemData.php",
 				success:function(r){
 					
