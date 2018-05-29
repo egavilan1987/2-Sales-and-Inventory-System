@@ -7,6 +7,6 @@
   
 	$obj=new items();
   
-	echo $obj->insertItem($idItem);
+	echo $obj->deleteItem($idItem);
   
  ?>
