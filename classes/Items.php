@@ -79,44 +79,41 @@ public function getItemData(idItem){
 						WHERE id_product='$data[0]'";
 			return mysqli_query($connection,$sql);
 		}
-		public function deleteItem($idItem){
-			
+public function deleteItem($idProduct){
 			$c=new Connect();
-			$connection=$c->connection();
-			
-			$idimagen=self::obtenIdImg($idItem);
-			
-			$sql="DELETE FROM sl_items 
-					WHERE id_product='$idItem'";
-			$result=mysqli_query($connection,$sql);
+			$conn=$c->connection();
+			$idImage=self::getImageID($idProduct);
+			$sql="DELETE from sl_items 
+					WHERE id_product='$idProduct'";
+			$result=mysqli_query($conn,$sql);
 			if($result){
-				$ruta=self::obtenRutaImagen($idimagen);
-				$sql="DELETE from imagenes 
-						where id_imagen='$idimagen'";
-				$result=mysqli_query($conexion,$sql);
+				$path=self::getImagePath($idImage);
+				$sql="DELETE from sl_images 
+						WHERE id_image='$idImage'";
+				$result=mysqli_query($conn,$sql);
 					if($result){
-						if(unlink($ruta)){
+						if(unlink($path)){
 							return 1;
 						}
 					}
 			}
 		}
-		public function obtenIdImg($idProducto){
-			$c= new conectar();
-			$conexion=$c->conexion();
-			$sql="SELECT id_imagen 
-					from articulos 
-					where id_producto='$idProducto'";
-			$result=mysqli_query($conexion,$sql);
+		public function getImageID($idProduct){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="SELECT id_image 
+					FROM sl_items 
+					WHERE id_product='$idProduct'";
+			$result=mysqli_query($conn,$sql);
 			return mysqli_fetch_row($result)[0];
 		}
-		public function obtenRutaImagen($idImg){
-			$c= new conectar();
-			$conexion=$c->conexion();
-			$sql="SELECT ruta 
-					from imagenes 
-					where id_imagen='$idImg'";
-			$result=mysqli_query($conexion,$sql);
+		public function getImagePath($idImg){
+			$c=new Connect();
+			$conn=$c->connection();
+			$sql="SELECT path 
+					FROM sl_images 
+					WHERE id_image='$idImg'";
+			$result=mysqli_query($conn,$sql);
 			return mysqli_fetch_row($result)[0];
 		}
 	}
