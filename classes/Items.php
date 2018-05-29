@@ -8,7 +8,7 @@
 
 			$date=date('Y-m-d');
 
-			$sql="INSERT INTO sl_images (id_categorY,
+			$sql="INSERT INTO sl_images (id_category,
 										name_image,
 										path,
 										uploaded_date)
