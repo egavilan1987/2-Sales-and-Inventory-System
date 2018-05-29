@@ -50,15 +50,114 @@
 				</div>
 			</div>
 		</div>
+		<!-- Button trigger modal -->
+		
+		<!-- Modal -->
+		<div class="modal fade" id="openUpdateItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Update Item</h4>
+					</div>
+					<div class="modal-body">
+						<form id="frmItemUpdate" enctype="multipart/form-data">
+							<input type="text" id="id_item" hidden="" name="id_item">
+							<label>Category</label>
+							<select class="form-control input-sm" id="selectCategoryUpdate" name="selectCategoryUpdate">
+								<option value="A">Select Category</option>
+								<?php 
+								$sql="SELECT id_category,name_category
+								from sl_categories";
+								$result=mysqli_query($connection,$sql);
+								?>
+								<?php while($row=mysqli_fetch_row($result)): ?>
+									<option value="<?php echo $row[0] ?>"><?php echo $row[1]; ?></option>
+								<?php endwhile; ?>
+							</select>
+							<label>Name</label>
+							<input type="text" class="form-control input-sm" id="nameUpdate" name="nameUpdate">
+							<label>Description</label>
+							<input type="text" class="form-control input-sm" id="descriptionUpdate" name="descriptionUpdate" >
+							<label>Quantity</label>
+							<input type="number" class="form-control input-sm" id="quantityUpdate" name="quantityUpdate" min="0">
+							<label>Price</label>
+							<input type="number" class="form-control input-sm" id="priceUpdate" name="priceUpdate" min="0">
+							
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="updateItemBtn" type="button" class="btn btn-warning" data-dismiss="modal">Save Changes</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
 </body>
 </html>
+	<script type="text/javascript">
+		function updateItemData(idItem){
+			$.ajax({
+				type:"POST",
+				data:"idart=" + idItem,
+				url:"../process/items/getItemData.php",
+				success:function(r){
+					
+					data=jQuery.parseJSON(r);
+					$('#idItem').val(data['id_product']);
+					$('#selectCategoryUpdate').val(data['id_categoria']);
+					$('#nameUpdate').val(data['name']);
+					$('#descriptionUpdate').val(data['description']);
+					$('#quantityUpdate').val(data['quantity']);
+					$('#priceUpdate').val(data['price']);
+				}
+			});
+		}
+		function deleteItem(idItem){
+			alertify.confirm('Do you want to delete this item?', function(){ 
+				$.ajax({
+					type:"POST",
+					data:"idItem=" + idItem,
+					url:"../process/items/deleteItem.php",
+					success:function(r){
+						if(r==1){
+							$('#loadItemsTable').load("items/itemsTable.php");
+							alertify.success("Item sucessfuly deleted!");
+						}else{
+							alertify.error("The item could no be deleted");
+						}
+					}
+				});
+			}, function(){ 
+				alertify.error('Canceled !')
+			});
+		}
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#updateItemBtn').click(function(){
+				data=$('#frmItemUpdate').serialize();
+				$.ajax({
+					type:"POST",
+					data:data,
+					url:"../process/items/deleteItem.php",
+					success:function(r){
+						if(r==1){
+							$('#loadItemsTable').load("items/itemsTable.php");
+							alertify.success("Item sucessfuly deleted!");
+						}else{
+							alertify.error("Item information could not be updated.");
+						}
+					}
+				});
+			});
+		});
+	</script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#loadItemsTable').load("items/itemsTable.php");
-
 			$('#btnAddItem').click(function(){
-					<!--Validate all the field are not empty-->
 					Empties=validateEmptyForm('frmItems');
 		
 					if(Empties > 0){
@@ -66,7 +165,6 @@
 						return false;
 					}
 				var formData = new FormData(document.getElementById("frmItems"));
-
 				$.ajax({
 					url: "../process/items/insertItem.php",
 					type: "post",
@@ -75,12 +173,12 @@
 					cache: false,
 					contentType: false,
 					processData: false,
-
 					success:function(r){
+						alert(r);
 						
 						if(r == 1){
-							$('#frmItems')[0].reset(); <!--Reset all the form fields-->
-							$('#loadItemsTable').load("items/itemsTable.php");<!--Load the item table-->
+							$('#frmItems')[0].reset();
+							$('#loadItemsTable').load("items/itemsTable.php");
 							alertify.success("Item successfully added");
 						}else{
 							alertify.error("Upload failed");
