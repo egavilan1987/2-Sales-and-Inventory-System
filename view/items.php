@@ -140,11 +140,11 @@
 				$.ajax({
 					type:"POST",
 					data:data,
-					url:"../process/items/deleteItem.php",
+					url:"../process/items/updateItem.php",
 					success:function(r){
 						if(r==1){
 							$('#loadItemsTable').load("items/itemsTable.php");
-							alertify.success("Item sucessfuly deleted!");
+							alertify.success("Item sucessfuly updated!");
 						}else{
 							alertify.error("Item information could not be updated.");
 						}
