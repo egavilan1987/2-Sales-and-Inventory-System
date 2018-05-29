@@ -7,12 +7,12 @@ ITEM TABLES
 			$conn=$c->connection();
 
 	$sql="SELECT art.name_product,
-					itm .description_product,
-					itm .stock_product,
-					itm .price_product,
+					itm.description_product,
+					itm.stock_product,
+					itm.price_product,
 					img.path
 					cat.name_category,
-					itm .id_product
+					itm.id_product
 		  FROM sl_items AS itm 
 		  INNER JOIN sl_images AS img
 		  ON itm.id_image=img.id_image
