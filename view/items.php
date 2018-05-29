@@ -27,8 +27,8 @@
 												<label>Category</label>
 						<select class="form-control input-sm" id="selectCategory" name="selectCategory">
 							<option value="A">Select Category</option>
-							<?php while($show=mysqli_fetch_row($result)): ?>
-								<option value="<?php echo $show[0] ?>"><?php echo $show[1]; ?></option>
+							<?php while($row=mysqli_fetch_row($result)): ?>
+								<option value="<?php echo $row[0] ?>"><?php echo $row[1]; ?></option>
 							<?php endwhile; ?>
 						</select>
 						<label>Name</label>
