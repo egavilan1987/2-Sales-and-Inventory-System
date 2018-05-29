@@ -105,11 +105,11 @@
 					
 					data=jQuery.parseJSON(r);
 					$('#idItem').val(data['id_product']);
-					$('#selectCategoryUpdate').val(data['id_categoria']);
-					$('#nameUpdate').val(data['name']);
-					$('#descriptionUpdate').val(data['description']);
-					$('#quantityUpdate').val(data['quantity']);
-					$('#priceUpdate').val(data['price']);
+					$('#selectCategoryUpdate').val(data['id_category']);
+					$('#nameUpdate').val(data['name_product']);
+					$('#descriptionUpdate').val(data['description_product']);
+					$('#quantityUpdate').val(data['stock_product']);
+					$('#priceUpdate').val(data['price_product']);
 				}
 			});
 		}
