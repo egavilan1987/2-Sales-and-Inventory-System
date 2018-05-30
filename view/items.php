@@ -62,7 +62,7 @@
 					</div>
 					<div class="modal-body">
 						<form id="frmItemUpdate" enctype="multipart/form-data">
-							<input type="text" id="id_item" hidden="" name="id_item">
+							<input type="text" id="idItem" hidden="" name="idItemidItem">
 							<label>Category</label>
 							<select class="form-control input-sm" id="selectCategoryUpdate" name="selectCategoryUpdate">
 								<option value="A">Select Category</option>
@@ -102,7 +102,7 @@
 				data:"idItm=" + idItem,
 				url:"../process/items/getItemData.php",
 				success:function(r){
-					
+
 					data=jQuery.parseJSON(r);
 					$('#idItem').val(data['id_product']);
 					$('#selectCategoryUpdate').val(data['id_category']);
@@ -174,7 +174,6 @@
 					contentType: false,
 					processData: false,
 					success:function(r){
-						alert(r);
 						
 						if(r == 1){
 							$('#frmItems')[0].reset();

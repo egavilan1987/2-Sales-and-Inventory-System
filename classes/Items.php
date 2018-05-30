@@ -45,9 +45,10 @@
 			return mysqli_query($connection,$sql);
 		}
 		
-public function getItemData(idItem){
+public function getItemData($idItem){
 			$c=new Connect();
 			$connection=$c->connection();
+
 			$sql="SELECT id_product, 
 						id_category, 
 						name_product,
@@ -55,9 +56,11 @@ public function getItemData(idItem){
 						stock_product,
 						price_product 
 				FROM sl_items 
-				WHERE id_product='idItem'";
+				WHERE id_product='$idItem'";
 			$result=mysqli_query($connection,$sql);
+
 			$row=mysqli_fetch_row($result);
+
 			$itemArray=array(
 					"id_product" => $row[0],
 					"id_category" => $row[1],
