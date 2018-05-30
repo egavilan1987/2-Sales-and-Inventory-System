@@ -83,12 +83,14 @@
 						WHERE id_user='$data[0]'";
 			return mysqli_query($connection,$sql);	
 		}
-		public function eliminaUsuario($idusuario){
-			$c=new conectar();
-			$conexion=$c->conexion();
-			$sql="DELETE from usuarios 
-					where id_usuario='$idusuario'";
-			return mysqli_query($conexion,$sql);
+		public function deleteUser($idUser){
+			
+			$c=new Connect();
+			$connection=$c->connection();
+			
+			$sql="DELETE FROM sl_users 
+					WHERE id_user='$idUser'";
+			return mysqli_query($connection,$sql);
 		}
 	}
  ?>
