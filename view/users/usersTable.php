@@ -26,12 +26,12 @@
 		<td><?php echo $row[2]; ?></td>
 		<td><?php echo $row[3]; ?></td>
 		<td>
-			<span data-toggle="modal" data-target="#actualizaUsuarioModal" class="btn btn-warning btn-xs" onclick="agregaDatosUsuario('<?php echo $row[0]; ?>')">
+			<span data-toggle="modal" data-target="#updateCategoryModal" class="btn btn-warning btn-xs" onclick="updateUser('<?php echo $row[0]; ?>')">
 				<span class="glyphicon glyphicon-pencil"></span>
 			</span>
 		</td>
 		<td>
-			<span class="btn btn-danger btn-xs" onclick="eliminarUsuario('<?php echo $row[0]; ?>')">
+			<span class="btn btn-danger btn-xs" onclick="deleteUser('<?php echo $row[0]; ?>')">
 				<span class="glyphicon glyphicon-remove"></span>
 			</span>
 		</td>
