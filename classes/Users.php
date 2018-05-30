@@ -4,9 +4,9 @@
 			$c=new Connect();
 			$connection=$c->connection();
 			$date=date('Y-m-d');
-			$sql="INSERT INTO sl_users (name,
+			$sql="INSERT INTO sl_users (name_user,
 								last_name,
-								email,
+								email_user,
 								password,
 								date_capture)
 						VALUES ('$data[0]',
