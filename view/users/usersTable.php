@@ -1,3 +1,14 @@
+<?php 
+	session_start();
+	require_once "../../classes/connection.php";
+	$c=new Connect();
+	$connection=$c->connection();
+	$sql="SELECT id_user,
+				 name_user,
+				 last_user
+			FROM sl_users";
+	$result=mysqli_query($connection,$sql);
+ ?>
 <table class="table table-hover table-condensed table-bordered" style="text-align: center;">
 	<caption><label>Users</label></caption>
 	<tr>
