@@ -78,13 +78,13 @@ if(isset($_SESSION['user']) and $_SESSION['user']=='admin'){
 				url:"../process/users/getUserData.php",
 				success:function(r){
 					data=jQuery.parseJSON(r);
-					$('#idUser').val(data['idUser']);
+					$('#idUser').val(data['id_user']);
 					$('#nameUpdate').val(data['name']);
 					$('#lastNameUpdate').val(data['lastName']);
 					$('#userUpdate').val(data['email']);
 				}
 			});
-		}
+		}			
 		function deleteUser(idUser){
 			alertify.confirm('¿Desea eliminar este usuario?', function(){ 
 				$.ajax({
