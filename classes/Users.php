@@ -51,24 +51,26 @@
 
 			return mysqli_fetch_row($result)[0];
 		}
-		public function obtenDatosUsuario($idusuario){
-			$c=new conectar();
-			$conexion=$c->conexion();
-			$sql="SELECT id_usuario,
-							nombre,
-							apellido,
-							email
-					from usuarios 
-					where id_usuario='$idusuario'";
-			$result=mysqli_query($conexion,$sql);
-			$ver=mysqli_fetch_row($result);
-			$datos=array(
-						'id_usuario' => $ver[0],
-							'nombre' => $ver[1],
-							'apellido' => $ver[2],
-							'email' => $ver[3]
+		public function getUserData($idUser){
+			$c=new Connect();
+			$connection=$c->connection();
+			$sql="SELECT id_user,
+							name_user,
+							last_user,
+							email_user
+					FROM sl_users 
+					WHERE id_user='$idUser'";
+			$result=mysqli_query($connection,$sql);
+			
+			$row=mysqli_fetch_row($result);
+			
+			$userArray=array(
+						'id_user' => $row[0],
+							'name' => $row[1],
+							'lastNamer' => $row[2],
+							'email' => $row[3]
 						);
-			return $datos;
+			return $userArray;
 		}
 		public function actualizaUsuario($datos){
 			$c=new conectar();
