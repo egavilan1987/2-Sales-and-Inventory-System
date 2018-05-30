@@ -18,21 +18,23 @@
 		<td>Edit</td>
 		<td>Delete</td>
 	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td></td>
+	
+	<?php while($row=mysqli_fetch_row($result)): ?>
 
+	<tr>
+		<td><?php echo $row[1]; ?></td>
+		<td><?php echo $row[2]; ?></td>
+		<td><?php echo $row[3]; ?></td>
 		<td>
-			<span class="btn btn-warning btn-xs">
+			<span data-toggle="modal" data-target="#actualizaUsuarioModal" class="btn btn-warning btn-xs" onclick="agregaDatosUsuario('<?php echo $row[0]; ?>')">
 				<span class="glyphicon glyphicon-pencil"></span>
 			</span>
 		</td>
 		<td>
-			<span class="btn btn-danger btn-xs">
+			<span class="btn btn-danger btn-xs" onclick="eliminarUsuario('<?php echo $row[0]; ?>')">
 				<span class="glyphicon glyphicon-remove"></span>
 			</span>
 		</td>
 	</tr>
-	</tr>
+<?php endwhile; ?>
 </table>
