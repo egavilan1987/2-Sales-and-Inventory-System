@@ -68,6 +68,44 @@ if(isset($_SESSION['user']) and $_SESSION['user']=='admin'){
 
 </body>
 </html>
+
+
+	<script type="text/javascript">
+		function updateUser(idUser){
+			$.ajax({
+				type:"POST",
+				data:"idUser=" + idUser,
+				url:"../process/users/getUserData.php",
+				success:function(r){
+					data=jQuery.parseJSON(r);
+					$('#idUser').val(data['idUser']);
+					$('#nameUpdate').val(data['name']);
+					$('#lastNameUpdate').val(data['lastName']);
+					$('#userUpdate').val(data['email']);
+				}
+			});
+		}
+		function deleteUser(idUser){
+			alertify.confirm('¿Desea eliminar este usuario?', function(){ 
+				$.ajax({
+					type:"POST",
+					data:"idusuario=" + idusuario,
+					url:"../procesos/usuarios/eliminarUsuario.php",
+					success:function(r){
+						if(r==1){
+							$('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php');
+							alertify.success("Eliminado con exito!!");
+						}else{
+							alertify.error("No se pudo eliminar :(");
+						}
+					}
+				});
+			}, function(){ 
+				alertify.error('Cancelo !')
+			});
+		}
+	</script>
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#loadUsersTable').load("users/usersTable.php");
