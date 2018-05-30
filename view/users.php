@@ -54,7 +54,9 @@ if(isset($_SESSION['user']) and $_SESSION['user']=='admin'){
 					data:data,
 					url:"../process/regLogin/registerUser.php",
 					success:function(r){
-						if(r==1){
+					if(r==1){
+						$('#frmRegister')[0].reset();
+						$('#loadUsersTable').load("users/usersTable.php");
 						alertify.success("Category successfuly added.");
 				}else{
 						alertify.error("Could not add Category.");
