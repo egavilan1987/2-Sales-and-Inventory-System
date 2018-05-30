@@ -6,12 +6,12 @@
 	$obj= new items();
 
 $arrayItem=array(
-		$_POST['idItem'],
-	    $_POST['selectCategoryUpdate'],
-	    $_POST['nameUpdate'],
-	    $_POST['descriptionUpdate'],
-	    $_POST['quantityUpdate'],
-	    $_POST['priceUpdate']
+		$_POST['idArticulo'],
+	    $_POST['categoriaSelectU'],
+	    $_POST['nombreU'],
+	    $_POST['descripcionU'],
+	    $_POST['cantidadU'],
+	    $_POST['precioU']
 			);
     echo $obj->updateItem($arrayItem);
  ?>
