@@ -1,6 +1,9 @@
 <?php 
-	require_once "../../clases/Conexion.php";
-	require_once "../../clases/Usuarios.php";
-	$obj= new usuarios;
-	echo json_encode($obj->obtenDatosUsuario($_POST['idusuario']));
+	session_start();
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Categories.php";
+
+	$obj= new users;
+	
+	echo json_encode($obj->getUserData($_POST['idUser']));
  ?>
