@@ -72,14 +72,16 @@
 						);
 			return $userArray;
 		}
-		public function actualizaUsuario($datos){
-			$c=new conectar();
-			$conexion=$c->conexion();
-			$sql="UPDATE usuarios set nombre='$datos[1]',
-									apellido='$datos[2]',
-									email='$datos[3]'
-						where id_usuario='$datos[0]'";
-			return mysqli_query($conexion,$sql);	
+		public function updateUser($data){
+			
+			$c=new Connect();
+			$connection=$c->connection();
+			
+			$sql="UPDATE sl_users SET name_user='$data[1]',
+							last_user='$data[2]',
+							email_user='$data[3]'
+						WHERE id_user='$data[0]'";
+			return mysqli_query($connection,$sql);	
 		}
 		public function eliminaUsuario($idusuario){
 			$c=new conectar();
