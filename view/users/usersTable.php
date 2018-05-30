@@ -26,7 +26,7 @@
 		<td><?php echo $row[2]; ?></td>
 		<td><?php echo $row[3]; ?></td>
 		<td>
-			<span data-toggle="modal" data-target="#updateCategoryModal" class="btn btn-warning btn-xs" onclick="updateUser('<?php echo $row[0]; ?>')">
+			<span data-toggle="modal" data-target="#updateUserModal" class="btn btn-warning btn-xs" onclick="updateUser('<?php echo $row[0]; ?>')">
 				<span class="glyphicon glyphicon-pencil"></span>
 			</span>
 		</td>
