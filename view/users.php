@@ -34,6 +34,38 @@ if(isset($_SESSION['user']) and $_SESSION['user']=='admin'){
 				</div>
 			</div>
 		</div>
+
+		<!-- Button trigger modal -->
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Update User</h4>
+					</div>
+					<div class="modal-body">
+						<form id="frmUpdateUser">
+							<input type="text" hidden="" id="idUser" name="idUser">
+							<label>Name</label>
+							<input type="text" class="form-control input-sm" name="nameUpdate" id="nameUpdate">
+							<label>Last Name</label>
+							<input type="text" class="form-control input-sm" name="lastNameUpdate" id="lastNameUpdate">
+							<label>User</label>
+							<input type="text" class="form-control input-sm" name="userUpdate" id="userUpdate">
+
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="updateUserBtn" type="button" class="btn btn-warning" data-dismiss="modal">Save changes</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
 </body>
 </html>
 	<script type="text/javascript">
