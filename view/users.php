@@ -52,7 +52,7 @@ if(isset($_SESSION['user']) and $_SESSION['user']=='admin'){
 				$.ajax({
 					type:"POST",
 					data:data,
-					url:"../process/users/addUsers.php",
+					url:"../process/regLogin/registerUser.php",
 					success:function(r){
 						if(r==1){
 						alertify.success("Category successfuly added.");
