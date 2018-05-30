@@ -86,22 +86,23 @@ if(isset($_SESSION['user']) and $_SESSION['user']=='admin'){
 			});
 		}			
 		function deleteUser(idUser){
-			alertify.confirm('¿Desea eliminar este usuario?', function(){ 
+			alertify.confirm('Do you want to delete the user?', function(){ 
 				$.ajax({
 					type:"POST",
-					data:"idusuario=" + idusuario,
-					url:"../procesos/usuarios/eliminarUsuario.php",
+					data:"idUser=" + idUser,
+					url:"../process/users/deleteUser.php",
 					success:function(r){
 						if(r==1){
-							$('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php');
-							alertify.success("Eliminado con exito!!");
+							$('#frmUpdateUser')[0].reset();
+							$('#loadUsersTable').load("users/usersTable.php");
+							alertify.success("User successfuly deleted!");
 						}else{
-							alertify.error("No se pudo eliminar :(");
+							alertify.error("User could not be deleled.");
 						}
 					}
 				});
 			}, function(){ 
-				alertify.error('Cancelo !')
+				alertify.error('Canceled!')
 			});
 		}
 	</script>
