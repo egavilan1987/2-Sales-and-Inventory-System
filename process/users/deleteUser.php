@@ -1,6 +1,9 @@
 <?php 
-	require_once "../../clases/Conexion.php";
-	require_once "../../clases/Usuarios.php";
-	$obj= new usuarios;
-	echo $obj->eliminaUsuario($_POST['idusuario']);
+	session_start();
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Users.php";
+
+	$obj= new users;
+
+	echo $obj->deleteUser($_POST['idUser']);
  ?>
