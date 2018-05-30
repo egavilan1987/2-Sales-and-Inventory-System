@@ -45,7 +45,7 @@
 			return mysqli_query($connection,$sql);
 		}
 		
-public function getItemData($idItem){
+public function __getItemData($idItem){
 			$c=new Connect();
 			$connection=$c->connection();
 
@@ -71,7 +71,7 @@ public function getItemData($idItem){
 						);
 			return $itemArray;
 		}
-		public function updateItem($data){
+		public function __updateItem($data){
 			$c=new Connect();
 			$connection=$c->connection();
 			$sql="UPDATE sl_items SET id_category='$data[1]', 
@@ -82,7 +82,7 @@ public function getItemData($idItem){
 						WHERE id_product='$data[0]'";
 			return mysqli_query($connection,$sql);
 		}
-		public function eliminaArticulo($idarticulo){
+		public function __eliminaArticulo($idarticulo){
 			$c=new conectar();
 			$conexion=$c->conexion();
 			$idimagen=self::obtenIdImg($idarticulo);
@@ -101,7 +101,7 @@ public function getItemData($idItem){
 					}
 			}
 		}
-		public function obtenIdImg($idProducto){
+		public function __obtenIdImg($idProducto){
 			$c= new conectar();
 			$conexion=$c->conexion();
 			$sql="SELECT id_imagen 
@@ -110,7 +110,7 @@ public function getItemData($idItem){
 			$result=mysqli_query($conexion,$sql);
 			return mysqli_fetch_row($result)[0];
 		}
-		public function obtenRutaImagen($idImg){
+		public function __obtenRutaImagen($idImg){
 			$c= new conectar();
 			$conexion=$c->conexion();
 			$sql="SELECT ruta 
