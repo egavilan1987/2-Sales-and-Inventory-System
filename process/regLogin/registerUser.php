@@ -6,7 +6,7 @@
 	$data=array(
 		$_POST['name'],
 		$_POST['lastName'],
-		$_POST['email'],
+		$_POST['user'],
 		$pass
 				);
 	echo $obj->userRegister($data);
