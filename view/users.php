@@ -1,8 +1,7 @@
 <?php 
-	session_start();
-	if(isset($_SESSION['user'])){
-		
- ?>
+session_start();
+if(isset($_SESSION['user']) and $_SESSION['user']=='admin'){
+	?>
 
 
 <!DOCTYPE html>

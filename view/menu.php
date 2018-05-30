@@ -39,19 +39,23 @@
             </ul>
           </li>
 
+          <?php
+          if($_SESSION['user']=="admin"):
+           ?>
 
            <li><a href="users.php"><span class="glyphicon glyphicon-user"></span> Manage Users</a>
             </li>
-
+            <?php 
+            endif;
+            ?>
 
 
            <li><a href="clients.php"><span class="glyphicon glyphicon-user"></span> Clients</a>
           </li>
           <li><a href="sales.php"><span class="glyphicon glyphicon-usd"></span> Sale Items</a>
           </li>
-          
           <li class="dropdown" >
-            <a href="#" style="color: red"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Users:  <span class="caret"></span></a>
+            <a href="#" style="color: red"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> user: <?php echo $_SESSION['user']; ?>  <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li> <a style="color: red" href="../process/logout.php"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
               
