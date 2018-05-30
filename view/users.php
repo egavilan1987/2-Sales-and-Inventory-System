@@ -105,6 +105,27 @@ if(isset($_SESSION['user']) and $_SESSION['user']=='admin'){
 			});
 		}
 	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#updateUserBtn').click(function(){
+				data=$('#frmUpdateUser').serialize();
+				$.ajax({
+					type:"POST",
+					data:data,
+					url:"../process/users/updateUser.php",
+					success:function(r){
+						if(r==1){
+							$('#frmUpdateUser')[0].reset();
+							$('#loadUsersTable').load("users/usersTable.php");
+							alertify.success("User successfuly updated.");
+						}else{
+							alertify.error("User information could not be updated.");
+						}
+					}
+				});
+			});
+		});
+	</script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
