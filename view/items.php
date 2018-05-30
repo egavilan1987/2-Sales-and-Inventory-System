@@ -174,7 +174,7 @@
 					contentType: false,
 					processData: false,
 					success:function(r){
-						
+						alert(r);
 						if(r == 1){
 							$('#frmItems')[0].reset();
 							$('#loadItemsTable').load("items/itemsTable.php");
