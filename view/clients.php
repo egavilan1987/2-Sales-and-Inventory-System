@@ -58,7 +58,7 @@
 				$.ajax({
 					type:"POST",
 					data:data,
-					url:"../process/client/addClient.php",
+					url:"../process/client/insertClient.php",
 					success:function(r){
 						if(r==1){
 						alertify.success("Client successfuly added.");
