@@ -1,23 +1,25 @@
 <?php 
-	class clientes{
-		public function agregaCliente($datos){
-			$c= new conectar();
-			$conexion=$c->conexion();
-			$idusuario=$_SESSION['iduser'];
-			$sql="INSERT into clientes (id_usuario,
+	class clients{
+		public function insertClient($data){
+			
+			$c=new Connect();
+			$connection=$c->connection();
+			
+			$id_user=$_SESSION['iduser'];
+			$sql="INSERT INTO sl_clients (id_usuario,
 										nombre,
 										apellido,
 										direccion,
 										email,
 										telefono,
 										rfc)
-							values ('$idusuario',
-									'$datos[0]',
-									'$datos[1]',
-									'$datos[2]',
-									'$datos[3]',
-									'$datos[4]',
-									'$datos[5]')";
+							VALUES ('$id_user',
+									'$data[0]',
+									'$data[1]',
+									'$data[2]',
+									'$data[3]',
+									'$data[4]',
+									'$data[5]')";
 			return mysqli_query($conexion,$sql);	
 		}
     
