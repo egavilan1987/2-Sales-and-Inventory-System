@@ -30,7 +30,7 @@
 						<label>RFC</label>
 						<input type="text" class="form-control input-sm" id="rfc" name="rfc">
 						<p></p>
-						<span class="btn btn-primary" id="btnAddClient">Add</span>
+						<span class="btn btn-primary" id="insertClientBtn">Save</span>
 					</form>
 				</div>
 				<div class="col-sm-8">
@@ -43,9 +43,10 @@
 
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
 			$('#loadClientsTable').load("clients/clientsTable.php");
 
-			$('#btnAddClient').click(function(){
+			$('#insertClientBtn').click(function(){
 
 					Empties=validateEmptyForm('frmClients');
 		
