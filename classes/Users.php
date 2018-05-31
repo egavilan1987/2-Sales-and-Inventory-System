@@ -67,7 +67,7 @@
 			$userArray=array(
 						'id_user' => $row[0],
 							'name' => $row[1],
-							'lastNamer' => $row[2],
+							'lastName' => $row[2],
 							'email' => $row[3]
 						);
 			return $userArray;
