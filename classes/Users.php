@@ -4,9 +4,9 @@
 			$c=new Connect();
 			$connection=$c->connection();
 			$date=date('Y-m-d');
-			$sql="INSERT INTO sl_users (name_user,
+			$sql="INSERT INTO sl_users (name,
 								last_name,
-								email_user,
+								email,
 								password,
 								date_capture)
 						VALUES ('$data[0]',
@@ -55,9 +55,9 @@
 			$c=new Connect();
 			$connection=$c->connection();
 			$sql="SELECT id_user,
-							name_user,
+							name,
 							last_user,
-							email_user
+							email
 					FROM sl_users 
 					WHERE id_user='$idUser'";
 			$result=mysqli_query($connection,$sql);
@@ -77,9 +77,9 @@
 			$c=new Connect();
 			$connection=$c->connection();
 			
-			$sql="UPDATE sl_users SET name_user='$data[1]',
-							last_user='$data[2]',
-							email_user='$data[3]'
+			$sql="UPDATE sl_users SET name='$data[1]',
+							last_name='$data[2]',
+							email='$data[3]'
 						WHERE id_user='$data[0]'";
 			return mysqli_query($connection,$sql);	
 		}

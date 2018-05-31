@@ -4,8 +4,9 @@
 	$c=new Connect();
 	$connection=$c->connection();
 	$sql="SELECT id_user,
-				 name_user,
-				 last_user
+				 name,
+				 last_name,
+				 email
 			FROM sl_users";
 	$result=mysqli_query($connection,$sql);
  ?>
