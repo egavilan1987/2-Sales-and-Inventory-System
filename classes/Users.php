@@ -56,7 +56,7 @@
 			$connection=$c->connection();
 			$sql="SELECT id_user,
 							name,
-							last_user,
+							last_name,
 							email
 					FROM sl_users 
 					WHERE id_user='$idUser'";
