@@ -24,7 +24,7 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<form id="frmItems" enctype="multipart/form-data">
-												<label>Category</label>
+						<label>Category</label>
 						<select class="form-control input-sm" id="selectCategory" name="selectCategory">
 							<option value="A">Select Category</option>
 							<?php while($row=mysqli_fetch_row($result)): ?>
@@ -36,13 +36,13 @@
 						<label>Description</label>
 						<input type="text" class="form-control input-sm" id="description" name="description">
 						<label>Quantity</label>
-						<input type="text" class="form-control input-sm" id="quantity" name="quantity">
+						<input type="number" class="form-control input-sm" id="quantity" name="quantity">
 						<label>Price</label>
-						<input type="text" class="form-control input-sm" id="price" name="price">
+						<input type="number" class="form-control input-sm" id="price" name="price">
 						<label>Image</label>
 						<input type="file" id="image" name="image">
 						<p></p>
-						<span id="btnAddItem" class="btn btn-primary">Save</span>
+						<span id="InsertItemBtn" class="btn btn-primary">Save</span>
 					</form>
 				</div>
 				<div class="col-sm-8">
@@ -62,7 +62,7 @@
 					</div>
 					<div class="modal-body">
 						<form id="frmItemUpdate" enctype="multipart/form-data">
-							<input type="text" id="idItem" hidden="" name="idItemidItem">
+							<input type="text" id="idItem" hidden="" name="idItem">
 							<label>Category</label>
 							<select class="form-control input-sm" id="selectCategoryUpdate" name="selectCategoryUpdate">
 								<option value="A">Select Category</option>
@@ -96,13 +96,12 @@
 </body>
 </html>
 	<script type="text/javascript">
-		function updateItemData(idItem){
+		function addItemData(idItem){
 			$.ajax({
 				type:"POST",
 				data:"idItm=" + idItem,
 				url:"../process/items/getItemData.php",
 				success:function(r){
-
 					data=jQuery.parseJSON(r);
 					$('#idItem').val(data['id_product']);
 					$('#selectCategoryUpdate').val(data['id_category']);
@@ -157,7 +156,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#loadItemsTable').load("items/itemsTable.php");
-			$('#btnAddItem').click(function(){
+			$('#InsertItemBtn').click(function(){
 					Empties=validateEmptyForm('frmItems');
 		
 					if(Empties > 0){
@@ -166,7 +165,7 @@
 					}
 				var formData = new FormData(document.getElementById("frmItems"));
 				$.ajax({
-					url: "../process/items/insertItem.php",
+					url: "../process/items/insertItems.php",
 					type: "post",
 					dataType: "html",
 					data: formData,
@@ -174,7 +173,6 @@
 					contentType: false,
 					processData: false,
 					success:function(r){
-						alert(r);
 						if(r == 1){
 							$('#frmItems')[0].reset();
 							$('#loadItemsTable').load("items/itemsTable.php");

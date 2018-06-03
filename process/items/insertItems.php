@@ -1,31 +1,29 @@
 
-
 <?php
 	session_start();
-	$idUser=$_SESSION['user'];
+	$idUser=$_SESSION['iduser'];
 	require_once "../../classes/connection.php";
 	require_once "../../classes/Items.php";
 
-	$obj= new items();
+	$obj = new Items();
 
 	$data=array();
 
-	$imageName=$_FILES['image']['name'];
-	$storagePath=$_FILES['image']['tmp_name'];
-	$folder='../../files/';
-	$finalPath=$folder.$imageName;
+    $imageName=$_FILES['image']['name'];
+    $storagePath=$_FILES['image']['tmp_name'];
+    $folder='../../files/';
+    $finalPath=$folder.$imageName;
 
-	$dataImg=array(
+    $dataImg=array(
 		$_POST['selectCategory'],
 		$imageName,
 		$finalPath
-					);
+			);
 
+    if(move_uploaded_file($storagePath, $finalPath)){
+    		$idImage=$obj->insertImage($dataImg);
 
-		if(move_uploaded_file($storagePath, $finalPath)){
-			$idImage=$obj->insertImage($dataImg);
-
-				if($idImage > 0){
+    		if($idImage > 0){
 
 					$data[0]=$_POST['selectCategory'];
 					$data[1]=$idImage;
@@ -37,9 +35,10 @@
 					echo $obj->insertItem($data);
 				}else{
 					echo 0;
-				}			
+				}	
 
-		}
-
+			}
 
 ?>
+
+

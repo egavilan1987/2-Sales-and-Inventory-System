@@ -9,7 +9,7 @@
 				email_client,
 				telephone_client,
 				rfc 
-		FROM sl_client";
+		FROM sl_clients";
 	$result=mysqli_query($conn,$sql);
  ?>
 
@@ -36,12 +36,12 @@
 	 		<td><?php echo $row[5]; ?></td>
 	 		<td><?php echo $row[6]; ?></td>
 	 		<td>
-				<span class="btn btn-warning btn-xs" data-toggle="modal" data-target="#openUpdateClientModal" onclick="updateItemData('<?php echo $row[0]; ?>')">
+				<span class="btn btn-warning btn-xs" data-toggle="modal" data-target="#openUpdateClientModal" onclick="addClient('<?php echo $row[0]; ?>')">
 					<span class="glyphicon glyphicon-pencil"></span>
 				</span>
 			</td>
 			<td>
-				<span class="btn btn-danger btn-xs" onclick="deleteClient('<?php echo $row[0]; ?>')">
+				<span class="btn btn-danger btn-xs" onclick="deleteTheClient('<?php echo $row[0]; ?>')">
 					<span class="glyphicon glyphicon-remove"></span>
 				</span>
 			</td>

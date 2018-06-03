@@ -52,14 +52,17 @@
 			return mysqli_fetch_row($result)[0];
 		}
 		public function getUserData($idUser){
+
 			$c=new Connect();
 			$connection=$c->connection();
+
 			$sql="SELECT id_user,
 							name,
 							last_name,
 							email
 					FROM sl_users 
 					WHERE id_user='$idUser'";
+					
 			$result=mysqli_query($connection,$sql);
 			
 			$row=mysqli_fetch_row($result);
@@ -81,6 +84,7 @@
 							last_name='$data[2]',
 							email='$data[3]'
 						WHERE id_user='$data[0]'";
+
 			return mysqli_query($connection,$sql);	
 		}
 		public function deleteUser($idUser){

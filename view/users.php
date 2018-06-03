@@ -71,7 +71,7 @@ if(isset($_SESSION['user']) and $_SESSION['user']=='admin'){
 
 
 	<script type="text/javascript">
-		function updateUser(idUser){
+		function addUser(idUser){
 			$.ajax({
 				type:"POST",
 				data:"idUser=" + idUser,

@@ -7,7 +7,7 @@
 					itm.description_product,
 					itm.stock_product,
 					itm.price_product,
-					img.path,
+					img.pathStorage,
 					cat.name_category,
 					itm.id_product
 		  FROM sl_items AS itm 
@@ -48,7 +48,7 @@
 		</td>
 		<td><?php echo $row[5]; ?></td>
 		<td>
-			<span  data-toggle="modal" data-target="#openUpdateItemModal" class="btn btn-warning btn-xs" onclick="updateItemData('<?php echo $row[6] ?>')">
+			<span  data-toggle="modal" data-target="#openUpdateItemModal" class="btn btn-warning btn-xs" onclick="addItemData('<?php echo $row[6] ?>')">
 				<span class="glyphicon glyphicon-pencil"></span>
 			</span>
 		</td>

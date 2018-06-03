@@ -5,8 +5,8 @@
   
   $idItem=$_POST['idItem'];
   
-	$obj=new items();
+	$obj=new Items();
   
-	echo $obj->insertItem($idItem);
+	echo $obj->deleteItem($idItem);
   
  ?>

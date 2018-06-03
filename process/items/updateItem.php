@@ -3,15 +3,15 @@
 	require_once "../../classes/connection.php";
 	require_once "../../classes/Items.php";
 
-	$obj= new items();
+	$obj = new Items();
 
 $arrayItem=array(
-		$_POST['idArticulo'],
-	    $_POST['categoriaSelectU'],
-	    $_POST['nombreU'],
-	    $_POST['descripcionU'],
-	    $_POST['cantidadU'],
-	    $_POST['precioU']
+		$_POST['idItem'],
+	    $_POST['selectCategoryUpdate'],
+	    $_POST['nameUpdate'],
+	    $_POST['descriptionUpdate'],
+	    $_POST['quantityUpdate'],
+	    $_POST['priceUpdate']
 			);
     echo $obj->updateItem($arrayItem);
  ?>

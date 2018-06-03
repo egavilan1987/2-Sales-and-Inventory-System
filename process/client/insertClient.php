@@ -1,8 +1,10 @@
-<?php 
+<?php
+
+session_start(); 
 	require_once "../../classes/connection.php";
 	require_once "../../classes/Clients.php";
   
-	$obj= new Users();
+	$obj= new Clients();
   
 	$clientArray=array(
 			$_POST['name'],

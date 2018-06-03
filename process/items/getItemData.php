@@ -4,7 +4,7 @@
 	require_once "../../classes/Items.php";
 
 
-	$obj= new items();
+	$obj= new Items();
 
 
 	$idItm=$_POST['idItm'];
