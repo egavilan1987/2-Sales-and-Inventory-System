@@ -5,49 +5,49 @@ require_once "../../clases/connection.php";
 ?>
 
 
-<h4>Vender un producto</h4>
+<h4>Sale a product</h4>
 <div class="row">
 	<div class="col-sm-4">
-		<form id="frmVentasProductos">
-			<label>Seleciona Cliente</label>
-			<select class="form-control input-sm" id="clienteVenta" name="clienteVenta">
-				<option value="A">Selecciona</option>
-				<option value="0">Sin cliente</option>
+		<form id="frmProductSale">
+			<label>Select Customer</label>
+			<select class="form-control input-sm" id="saleClient" name="saleClient">
+				<option value="A">Select</option>
+				<option value="0">Without client</option>
 				<?php
-				$sql="SELECT id_cliente,nombre,apellido 
-				from clientes";
-				$result=mysqli_query($conexion,$sql);
-				while ($cliente=mysqli_fetch_row($result)):
+				$sql="SELECT id_client, name_client,last_client 
+				FROM sl_clients";
+				$result=mysqli_query($connection, $sql);
+				while ($client=mysqli_fetch_row($result)):
 					?>
-					<option value="<?php echo $cliente[0] ?>"><?php echo $cliente[2]." ".$cliente[1] ?></option>
+					<option value="<?php echo $client[0] ?>"><?php echo $client[2]." ".$client[1] ?></option>
 				<?php endwhile; ?>
 			</select>
-			<label>Producto</label>
-			<select class="form-control input-sm" id="productoVenta" name="productoVenta">
-				<option value="A">Selecciona</option>
+			<label>Product</label>
+			<select class="form-control input-sm" id="saleProduct" name="saleProduct">
+				<option value="A">Select</option>
 				<?php
-				$sql="SELECT id_producto,
-				nombre
-				from articulos";
-				$result=mysqli_query($conexion,$sql);
-				while ($producto=mysqli_fetch_row($result)):
+				$sql="SELECT id_product,
+				name_product
+				FROM sl_items";
+				$result=mysqli_query($connection,$sql);
+				while ($product=mysqli_fetch_row($result)):
 					?>
-					<option value="<?php echo $producto[0] ?>"><?php echo $producto[1] ?></option>
+					<option value="<?php echo $product[0] ?>"><?php echo $product[1] ?></option>
 				<?php endwhile; ?>
 			</select>
-			<label>Descripcion</label>
-			<textarea readonly="" id="descripcionV" name="descripcionV" class="form-control input-sm"></textarea>
-			<label>Cantidad</label>
-			<input readonly="" type="text" class="form-control input-sm" id="cantidadV" name="cantidadV">
-			<label>Precio</label>
-			<input readonly="" type="text" class="form-control input-sm" id="precioV" name="precioV">
+			<label>Description</label>
+			<textarea readonly="" id="descripcionV" name="descriptionSale" class="form-control input-sm"></textarea>
+			<label>Quantity</label>
+			<input readonly="" type="text" class="form-control input-sm" id="quantitySale" name="quantitySale">
+			<label>Price</label>
+			<input readonly="" type="text" class="form-control input-sm" id="priceSale" name="priceSale">
 			<p></p>
-			<span class="btn btn-primary" id="btnAgregaVenta">Agregar</span>
+			<span class="btn btn-primary" id="addSaleBtn">Save</span>
 			<span class="btn btn-danger" id="btnVaciarVentas">Vaciar ventas</span>
 		</form>
 	</div>
 	<div class="col-sm-3">
-		<div id="imgProducto"></div>
+		<div id="imgProduct"></div>
 	</div>
 	<div class="col-sm-4">
 		<div id="tablaVentasTempLoad"></div>
@@ -71,13 +71,13 @@ require_once "../../clases/connection.php";
 				}
 			});
 		});
-		$('#btnAgregaVenta').click(function(){
-			vacios=validarFormVacio('frmVentasProductos');
+		$('#addSaleBtn').click(function(){
+			vacios=validarFormVacio('frmProductSale');
 			if(vacios > 0){
 				alertify.alert("Debes llenar todos los campos!!");
 				return false;
 			}
-			datos=$('#frmVentasProductos').serialize();
+			datos=$('#frmProductSale').serialize();
 			$.ajax({
 				type:"POST",
 				data:datos,
