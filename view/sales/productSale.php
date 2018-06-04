@@ -1,7 +1,7 @@
 <?php 
-require_once "../../clases/Conexion.php";
-$c= new conectar();
-$conexion=$c->conexion();
+require_once "../../clases/connection.php";
+			$c=new Connect();
+			$connection=$c->connection();
 ?>
 
 
