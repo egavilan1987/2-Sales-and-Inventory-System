@@ -1,5 +1,5 @@
 <?php 
-require_once "../../clases/connection.php";
+require_once "../../classes/connection.php";
 			$c=new Connect();
 			$connection=$c->connection();
 ?>
@@ -36,7 +36,7 @@ require_once "../../clases/connection.php";
 				<?php endwhile; ?>
 			</select>
 			<label>Description</label>
-			<textarea readonly="" id="descripcionV" name="descriptionSale" class="form-control input-sm"></textarea>
+			<textarea readonly="" id="descriptionSale" name="descriptionSale" class="form-control input-sm"></textarea>
 			<label>Quantity</label>
 			<input readonly="" type="text" class="form-control input-sm" id="quantitySale" name="quantitySale">
 			<label>Price</label>
@@ -56,42 +56,46 @@ require_once "../../clases/connection.php";
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
-		$('#productoVenta').change(function(){
+		$('#SalesTableTempLoad').load("sales/salesTableTemp.php");
+		$('#saleProduct').change(function(){
 			$.ajax({
 				type:"POST",
-				data:"idproducto=" + $('#productoVenta').val(),
-				url:"../procesos/ventas/llenarFormProducto.php",
+				data:"idProduct=" + $('#saleProduct').val(),
+				url:"../process/sales/fillProductForm.php",
 				success:function(r){
-					dato=jQuery.parseJSON(r);
-					$('#descripcionV').val(dato['descripcion']);
-					$('#cantidadV').val(dato['cantidad']);
-					$('#precioV').val(dato['precio']);
-					$('#imgProducto').prepend('<img class="img-thumbnail" id="imgp" src="' + dato['ruta'] + '" />');
+					data=jQuery.parseJSON(r);
+					$('#descriptionSale').val(data['description_product']);
+					$('#quantitySale').val(data['stock_product']);
+					$('#priceSale').val(data['price_product']);
+					$('#imgProduct').prepend('<img class="img-thumbnail" id="imgp" src="' + data['pathStorage'] + '" />');
 				}
 			});
 		});
 		$('#addSaleBtn').click(function(){
-			vacios=validarFormVacio('frmProductSale');
-			if(vacios > 0){
-				alertify.alert("Debes llenar todos los campos!!");
+
+			Empties=validateEmptyForm('frmProductSale');
+		
+			if(Empties > 0){
+				alertify.alert("You must fill all of the fields!");
 				return false;
 			}
-			datos=$('#frmProductSale').serialize();
+
+			data=$('#frmProductSale').serialize();
 			$.ajax({
 				type:"POST",
-				data:datos,
-				url:"../procesos/ventas/agregaProductoTemp.php",
+				data:data,
+				url:"../process/sales/addProductTemp.php",
 				success:function(r){
-					$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+					alert(r);
+					$('#SalesTableTempLoad').load("sales/salesTableTemp.php");
 				}
 			});
 		});
 		$('#btnVaciarVentas').click(function(){
 		$.ajax({
-			url:"../procesos/ventas/vaciarTemp.php",
+			url:"../process/sales/vaciarTemp.php",
 			success:function(r){
-				$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+				$('#SalesTableTempLoad').load("sales/salesTableTemp.php");
 			}
 		});
 	});
@@ -130,7 +134,7 @@ require_once "../../clases/connection.php";
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#clienteVenta').select2();
-		$('#productoVenta').select2();
+		$('#saleClient').select2();
+		$('#saleProduct').select2();
 	});
 </script>
