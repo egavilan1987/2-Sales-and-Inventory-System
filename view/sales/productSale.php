@@ -1,5 +1,5 @@
 <?php 
-require_once "../../classes/connection.php";
+	require_once "../../classes/connection.php";
 			$c=new Connect();
 			$connection=$c->connection();
 ?>
@@ -43,14 +43,14 @@ require_once "../../classes/connection.php";
 			<input readonly="" type="text" class="form-control input-sm" id="priceSale" name="priceSale">
 			<p></p>
 			<span class="btn btn-primary" id="addSaleBtn">Save</span>
-			<span class="btn btn-danger" id="btnVaciarVentas">Vaciar ventas</span>
+			<span class="btn btn-danger" id="clearSaleTableBtn">Clear Sale Table</span>
 		</form>
 	</div>
 	<div class="col-sm-3">
 		<div id="imgProduct"></div>
 	</div>
 	<div class="col-sm-4">
-		<div id="tablaVentasTempLoad"></div>
+		<div id="SalesTableTempLoad"></div>
 	</div>
 </div>
 
@@ -86,14 +86,13 @@ require_once "../../classes/connection.php";
 				data:data,
 				url:"../process/sales/addProductTemp.php",
 				success:function(r){
-					alert(r);
-					$('#SalesTableTempLoad').load("sales/salesTableTemp.php");
+				$('#SalesTableTempLoad').load("sales/salesTableTemp.php");
 				}
 			});
 		});
-		$('#btnVaciarVentas').click(function(){
+		$('#clearSaleTableBtn').click(function(){
 		$.ajax({
-			url:"../process/sales/vaciarTemp.php",
+			url:"../process/sales/clearTemp.php",
 			success:function(r){
 				$('#SalesTableTempLoad').load("sales/salesTableTemp.php");
 			}
@@ -103,14 +102,14 @@ require_once "../../classes/connection.php";
 </script>
 
 <script type="text/javascript">
-	function quitarP(index){
+	function deletePrice(index){
 		$.ajax({
 			type:"POST",
 			data:"ind=" + index,
-			url:"../procesos/ventas/quitarproducto.php",
+			url:"../process/sales/deletePrice.php",
 			success:function(r){
-				$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
-				alertify.success("Se quito el producto :D");
+				$('#SalesTableTempLoad').load("sales/salesTableTemp.php");
+				alertify.success("Product deleted.");
 			}
 		});
 	}

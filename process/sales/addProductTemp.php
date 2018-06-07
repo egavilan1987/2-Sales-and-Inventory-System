@@ -36,4 +36,6 @@
 
 	$_SESSION['buyTableTemp'][]=$item;
 
+	print_r($_SESSION['buyTableTemp']);
+
  ?>
