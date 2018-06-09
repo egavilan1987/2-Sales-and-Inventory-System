@@ -113,18 +113,19 @@
 			}
 		});
 	}
-	function crearVenta(){
+	function createSale(){
 		$.ajax({
-			url:"../procesos/ventas/crearVenta.php",
+			url:"../process/sales/createSale.php",
 			success:function(r){
+				alert (r);
 				if(r > 0){
-					$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
-					$('#frmVentasProductos')[0].reset();
-					alertify.alert("Venta creada con exito, consulte la informacion de esta en ventas hechas :D");
+					$('#SalesTableTempLoad').load("sales/salesTableTemp.php");
+					$('#frmProductSale')[0].reset();
+					alertify.alert("The sale was successfuly created, check the the sale in Sales Done.");
 				}else if(r==0){
-					alertify.alert("No hay lista de venta!!");
+					alertify.alert("There is not sale list!!");
 				}else{
-					alertify.error("No se pudo crear la venta");
+					alertify.error("Sale could not be created.");
 				}
 			}
 		});

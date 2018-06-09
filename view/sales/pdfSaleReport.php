@@ -1,90 +1,90 @@
 <?php 
-	require_once "../../clases/Conexion.php";
-	require_once "../../clases/Ventas.php";
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Sales.php";
 
-	$objv= new ventas();
+	$objs= new Sales();
 
 
-	$c=new conectar();
-	$conexion= $c->conexion();	
-	$idventa=$_GET['idventa'];
+	$c=new Connect();
+	$connection= $c->connection();	
+	$idSale=$_GET['idSale'];
 
- $sql="SELECT ve.id_venta,
-		ve.fechaCompra,
-		ve.id_cliente,
-		art.nombre,
-        art.precio,
-        art.descripcion
-	from ventas  as ve 
-	inner join articulos as art
-	on ve.id_producto=art.id_producto
-	and ve.id_venta='$idventa'";
+ $sql="SELECT sl.id_sale,
+		sl.purchase_date,
+		sl.id_client,
+		itm.name_product,
+        itm.price_product,
+        itm.description_product
+	from sl_sales  as sl 
+	inner join sl_items as itm
+	on sl.id_product=itm.id_product
+	and sl.id_sale='$idSale'";
 
-$result=mysqli_query($conexion,$sql);
+$result=mysqli_query($connection,$sql);
 
-	$ver=mysqli_fetch_row($result);
+	$row=mysqli_fetch_row($result);
 
-	$folio=$ver[0];
-	$fecha=$ver[1];
-	$idcliente=$ver[2];
+	$folio=$row[0];
+	$date=$row[1];
+	$idClient=$row[2];
 
  ?>	
 
  <!DOCTYPE html>
  <html>
  <head>
- 	<title>Reporte de venta</title>
- 	<link rel="stylesheet" type="text/css" href="../../librerias/bootstrap/css/bootstrap.css">
+ 	<title>Sales Report</title>
+ 	<link rel="stylesheet" type="text/css" href="../../libraries/bootstrap/css/bootstrap.css">
  </head>
  <body>
- 		<img src="../../img/ventas.jpg" width="200" height="200">
+ 		<img src="../../images/ventas.jpg" width="200" height="200">
  		<br>
  		<table class="table">
  			<tr>
- 				<td>Fecha: <?php echo $fecha; ?></td>
+ 				<td>date: <?php echo $date; ?></td>
  			</tr>
  			<tr>
  				<td>Folio: <?php echo $folio ?></td>
  			</tr>
  			<tr>
- 				<td>cliente: <?php echo $objv->nombreCliente($idcliente); ?></td>
+ 				<td>client: <?php echo $objs->clientName($idClient); ?></td>
  			</tr>
  		</table>
 
 
  		<table class="table">
  			<tr>
- 				<td>nombre producto</td>
- 				<td>Precio</td>
- 				<td>Cantidad</td>
- 				<td>Descripcion</td>
+ 				<td>Product Name</td>
+ 				<td>Price</td>
+ 				<td>Quantity</td>
+ 				<td>Description</td>
  			</tr>
 
  			<?php 
- 			$sql="SELECT ve.id_venta,
-						ve.fechaCompra,
-						ve.id_cliente,
-						art.nombre,
-				        art.precio,
-				        art.descripcion
-					from ventas  as ve 
-					inner join articulos as art
-					on ve.id_producto=art.id_producto
-					and ve.id_venta='$idventa'";
+ 			$sql="SELECT sl.id_sale,
+						sl.purchase_date,
+						sl.id_client,
+						itm.name_product,
+				        itm.price_product,
+				        itm.description_product
+					from sl_sales  as sl 
+					inner join sl_items as itm
+					on sl.id_product=itm.id_product
+					and sl.id_sale='$idSale'";
 
-			$result=mysqli_query($conexion,$sql);
+			$result=mysqli_query($connection,$sql);
 			$total=0;
-			while($mostrar=mysqli_fetch_row($result)):
+			while($row=mysqli_fetch_row($result)):
  			 ?>
 
  			<tr>
- 				<td><?php echo $ver[3]; ?></td>
- 				<td><?php echo $ver[4]; ?></td>
+ 				<td><?php echo $row[3]; ?></td>
+ 				<td><?php echo $row[4]; ?></td>
  				<td>1</td>
- 				<td><?php echo $ver[5]; ?></td>
+ 				<td><?php echo $row[5]; ?></td>
  			</tr>
  			<?php 
- 				$total=$total + $ver[4];
+ 				$total=$total + $row[4];
  			endwhile;
  			 ?>
  			 <tr>

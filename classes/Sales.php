@@ -32,44 +32,45 @@ class Sales{
 		return $data;
 		}
 	
-	public function crearVenta(){
-		$c= new conectar();
-		$conexion=$c->conexion();
+	public function createSale(){
+			$c=new Connect();
+			$connection=$c->connection();
 
-		$fecha=date('Y-m-d');
-		$idventa=self::creaFolio();
-		$datos=$_SESSION['tablaComprasTemp'];
-		$idusuario=$_SESSION['iduser'];
+		$date=date('Y-m-d');
+		$id_sale=self::createFolio();
+		$data=$_SESSION['buyTableTemp'];
+		$id_user=$_SESSION['iduser'];
 		$r=0;
 
-		for ($i=0; $i < count($datos) ; $i++) { 
-			$d=explode("||", $datos[$i]);
+		for ($i=0; $i < count($data) ; $i++) { 
+			$d=explode("||", $data[$i]);
 
-			$sql="INSERT into ventas (id_venta,
-										id_cliente,
-										id_producto,
-										iduser,
-										precio,
-										fechaCompra)
-							values ('$idventa',
+			$sql="INSERT INTO sl_sales (id_sale,
+										id_client,
+										id_product,
+										id_user,
+										price_sales,
+										purchase_date)
+							VALUES ('$id_sale',
 									'$d[5]',
 									'$d[0]',
-									'$idusuario',
+									'$id_user',
 									'$d[3]',
-									'$fecha')";
-			$r=$r + $result=mysqli_query($conexion,$sql);
+									'$date')";
+			$r=$r + $result=mysqli_query($connection,$sql);
 		}
 
 		return $r;
 	}
 
-	public function creaFolio(){
-		$c= new conectar();
-		$conexion=$c->conexion();
+	public function createFolio(){
+			$c=new Connect();
+			$connection=$c->connection();
 
-		$sql="SELECT id_venta from ventas group by id_venta desc";
 
-		$resul=mysqli_query($conexion,$sql);
+		$sql="SELECT id_sale FROM sl_sales GROUP BY id_sale DESC";
+
+		$resul=mysqli_query($connection,$sql);
 		$id=mysqli_fetch_row($resul)[0];
 
 		if($id=="" or $id==null or $id==0){
@@ -78,33 +79,35 @@ class Sales{
 			return $id + 1;
 		}
 	}
-	public function nombreCliente($idCliente){
-		$c= new conectar();
-		$conexion=$c->conexion();
+	public function clientName($idClient){
+			$c=new Connect();
+			$connection=$c->connection();
 
-		 $sql="SELECT apellido,nombre 
-			from clientes 
-			where id_cliente='$idCliente'";
-		$result=mysqli_query($conexion,$sql);
 
-		$ver=mysqli_fetch_row($result);
+		 $sql="SELECT last_client,name_client 
+			from sl_clients 
+			where id_client='$idClient'";
+		$result=mysqli_query($connection,$sql);
 
-		return $ver[0]." ".$ver[1];
+		$row=mysqli_fetch_row($result);
+
+		return $row[0]." ".$row[1];
 	}
 
-	public function obtenerTotal($idventa){
-		$c= new conectar();
-		$conexion=$c->conexion();
+	public function getTotal($idSale){
+			$c=new Connect();
+			$connection=$c->connection();
 
-		$sql="SELECT precio 
-				from ventas 
-				where id_venta='$idventa'";
-		$result=mysqli_query($conexion,$sql);
+
+		$sql="SELECT price_sales 
+				from sl_sales 
+				where id_sale='$idSale'";
+		$result=mysqli_query($connection,$sql);
 
 		$total=0;
 
-		while($ver=mysqli_fetch_row($result)){
-			$total=$total + $ver[0];
+		while($row=mysqli_fetch_row($result)){
+			$total=$total + $row[0];
 		}
 
 		return $total;

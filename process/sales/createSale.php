@@ -1,16 +1,16 @@
 <?php 
 	session_start();
-	require_once "../../clases/Conexion.php";
-	require_once "../../clases/Ventas.php";
-	$obj= new ventas();
-
+	require_once "../../classes/connection.php";
+	require_once "../../classes/Sales.php";
 	
+	$obj= new Sales();
 
-	if(count($_SESSION['tablaComprasTemp'])==0){
+
+	if(count($_SESSION['buyTableTemp'])==0){
 		echo 0;
 	}else{
-		$result=$obj->crearVenta();
-		unset($_SESSION['tablaComprasTemp']);
-		echo $result;
+		$result=$obj->createSale();
+		unset($_SESSION['buyTableTemp']);
+		echo 1;
 	}
  ?>
